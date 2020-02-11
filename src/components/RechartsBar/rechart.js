@@ -1,86 +1,142 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import {
-  BarChart,
-  ReferenceDot,
+  ComposedChart,
+  //   ReferenceDot,
   Bar,
+  Line,
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
+  //   Legend,
   ResponsiveContainer
 } from "recharts";
+import withStyles from "react-jss";
+
+const styles =
+  {
+    customTooltip: {
+      fill: "white",
+      color: "black"
+    }
+};
+
 
 const data = [
   {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400
+    brand: "The New Yorker",
+    goal: 180071014,
+    timeSpent: 208366158
   },
   {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
+    brand: "Wired",
+    goal: 94568726,
+    timeSpent: 122029256
   },
   {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290
+    brand: "Vanity Fair",
+    goal: 88277387,
+    timeSpent: 116791302
   },
   {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000
+    brand: "Teen Vogue",
+    goal: 23771643,
+    timeSpent: 31491036
   },
   {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181
+    brand: "Glamour",
+    goal: 42090408,
+    timeSpent: 56800805
   },
   {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500
+    brand: "Vogue",
+    goal: 61136100,
+    timeSpent: 83705322
   },
   {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
+    brand: "Allure",
+    goal: 44253466,
+    timeSpent: 66010598
+  },
+  {
+    brand: "GQ",
+    goal: 51855524,
+    timeSpent: 78281229
+  },
+  {
+    brand: "Architectural Digest",
+    goal: 18126918,
+    timeSpent: 27365902
+  },
+  {
+    brand: "Pitchfork",
+    goal: 50797245,
+    timeSpent: 77289997
+  },
+  {
+    brand: "Self",
+    goal: 49500320,
+    timeSpent: 76554197
+  },
+  {
+    brand: "CN Traveler",
+    goal: 25918960,
+    timeSpent: 40869596
+  },
+  {
+    brand: "Bon Appetit",
+    goal: 74403536,
+    timeSpent: 126443929
+  },
+  {
+    brand: "Epicurious",
+    goal: 48162400,
+    timeSpent: 93621041
   }
 ];
 
-export default class RechartsBar extends PureComponent {
-  static jsfiddleUrl = "https://jsfiddle.net/alidingling/90v76x08/";
-
-  render() {
+const CustomTooltip = ({ active, timeSpent, brand, goal }) => {
+  if (active) {
     return (
-      <ResponsiveContainer height={400}>
-        <BarChart
-          width={800}
-          height={400}
-          data={data}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5
-          }}
-        >
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-          <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
-          <ReferenceDot />
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="customTooltip">
+        <p className="label">{`${brand} : ${timeSpent} mins`}</p>
+        <p className="intro">{`Goal: ${goal}`}</p>
+      </div>
     );
   }
-}
+
+  return null;
+};
+
+const RechartsBar = () => {
+
+  return (
+    <ResponsiveContainer height={400}>
+      <ComposedChart
+        width={800}
+        height={400}
+        data={data}
+        margin={{
+          top: 20,
+          right: 50,
+          left: 50,
+          bottom: 5
+        }}
+      >
+        <XAxis
+          dataKey="brand"
+          tickLine={false}
+          fontFamily="Rubik"
+          fontSize="12px"
+          interval={0}
+          // tick={{angle: 45}}
+        />
+        <YAxis fontFamily="Rubik" fontSize="10px" />
+        <Tooltip content={<CustomTooltip brand={data.brand} />} />
+        <Bar dataKey="timeSpent" barSize={20} fill="tomato" legend="none" />
+        <Line dataKey="goal" stroke="none" fill="black" />
+      </ComposedChart>
+    </ResponsiveContainer>
+  );
+};
+
+export default withStyles(styles)(RechartsBar);

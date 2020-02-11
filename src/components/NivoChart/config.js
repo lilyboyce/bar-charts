@@ -1,7 +1,7 @@
 export default {
     keys: [
         "goal",
-        "time-spent",
+        "timeSpent",
     ],
     margin: {
         "top": 50,
@@ -13,7 +13,7 @@ export default {
         "tickSize": 0,
         "tickPadding": 5,
         "tickRotation": 0,
-        "legend": "brand",
+        // "legend": "brand",
         "legendPosition": "middle",
         "legendOffset": 32
     },
