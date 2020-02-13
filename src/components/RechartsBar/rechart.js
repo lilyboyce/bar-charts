@@ -94,7 +94,7 @@ const data = [
   }
 ];
 
-const CustomTooltip = ({ active, timeSpent, brand, goal }) => {
+const CustomTooltip = ({ active, brand, timeSpent, goal }) => {
   if (active) {
     return (
       <div className="customTooltip">
@@ -131,7 +131,7 @@ const RechartsBar = () => {
           // tick={{angle: 45}}
         />
         <YAxis fontFamily="Rubik" fontSize="10px" />
-        <Tooltip content={<CustomTooltip brand={data.brand} />} />
+        <Tooltip cursor={false} content={<CustomTooltip />} />
         <Bar dataKey="timeSpent" barSize={20} fill="tomato" legend="none" />
         <Line dataKey="goal" stroke="none" fill="black" />
       </ComposedChart>

@@ -10,7 +10,7 @@ class Chart extends React.Component {
 
     render() {
         return (
-            <div class="chart">
+            <div>
                 <ResponsiveBar
                     data={data}
                     keys={config.keys}
