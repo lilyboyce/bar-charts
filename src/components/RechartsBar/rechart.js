@@ -7,19 +7,18 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Cell,
   //   Legend,
   ResponsiveContainer
 } from "recharts";
 import withStyles from "react-jss";
 
-const styles =
-  {
-    customTooltip: {
-      fill: "white",
-      color: "black"
-    }
+const styles = {
+  customTooltip: {
+    fill: "white",
+    color: "black"
+  }
 };
-
 
 const data = [
   {
@@ -44,7 +43,7 @@ const data = [
   },
   {
     brand: "Glamour",
-    goal: 42090408,
+    goal: 59090408,
     timeSpent: 56800805
   },
   {
@@ -79,7 +78,7 @@ const data = [
   },
   {
     brand: "CN Traveler",
-    goal: 25918960,
+    goal: 55918960,
     timeSpent: 40869596
   },
   {
@@ -107,12 +106,23 @@ const CustomTooltip = ({ active, brand, timeSpent, goal }) => {
   return null;
 };
 
-const RechartsBar = () => {
+const CustomizedAxisTick = ({x, y, stroke, payload}) => {
+  return(
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dy={16} textAnchor="end" transform="rotate(-35)">
+        {payload.value}
+      </text>
+    </g>
+  );
+}
 
+console.log(CustomizedAxisTick);
+
+const RechartsBar = () => {
   return (
     <ResponsiveContainer height={400}>
       <ComposedChart
-        width={800}
+        // width={800}
         height={400}
         data={data}
         margin={{
@@ -124,16 +134,32 @@ const RechartsBar = () => {
       >
         <XAxis
           dataKey="brand"
+          tick={<CustomizedAxisTick/>}
           tickLine={false}
           fontFamily="Rubik"
-          fontSize="12px"
-          interval={0}
-          // tick={{angle: 45}}
+          fill="#c4c4c4"
+          fontSize="10px"
+          // interval={0}
+          tick={{ angle: 45 }}
+          padding={{ left: 30, right: 30 }}
         />
         <YAxis fontFamily="Rubik" fontSize="10px" />
         <Tooltip cursor={false} content={<CustomTooltip />} />
-        <Bar dataKey="timeSpent" barSize={20} fill="tomato" legend="none" />
-        <Line dataKey="goal" stroke="none" fill="black" />
+        <Bar
+          dataKey="timeSpent"
+          barCategoryGap="5%"
+          barSize={30}
+          fill="tomato"
+          legend="none"
+        >
+          {
+          	data.map((datum) => {
+            	const color = datum.goal > datum.timeSpent ? '#FF6361' : '#00205C';
+            	return <Cell fill={color} />;
+            })
+          }
+        </Bar>
+        <Line dataKey="goal" stroke="none" dot={{fill: '#FFA600', r:6}} activeDot={{stroke:'#FFA600', r:8}} />
       </ComposedChart>
     </ResponsiveContainer>
   );

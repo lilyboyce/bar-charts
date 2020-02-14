@@ -136,11 +136,11 @@ const Victory = () => {
         crossAxis
         style={{
           tickLabels: {
-            fontSize: 6,
+            fontSize: 4,
             angle: 45,
             marginBottom: "20px",
             fontFamily: "Rubik",
-            color: "#C4C4C4",
+            fill: "#C4C4C4",
             textAnchor: "start",
             verticalAnchor: "middle"
           },
