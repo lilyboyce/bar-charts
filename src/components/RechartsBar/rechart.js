@@ -122,8 +122,7 @@ const RechartsBar = () => {
   return (
     <ResponsiveContainer height={400}>
       <ComposedChart
-        // width={800}
-        height={400}
+        layout="vertical"
         data={data}
         margin={{
           top: 20,
@@ -132,9 +131,9 @@ const RechartsBar = () => {
           bottom: 5
         }}
       >
-        <XAxis
+        <YAxis
           dataKey="brand"
-          tick={<CustomizedAxisTick/>}
+          // tick={<CustomizedAxisTick/>}
           tickLine={false}
           fontFamily="Rubik"
           fill="#c4c4c4"
@@ -143,7 +142,7 @@ const RechartsBar = () => {
           tick={{ angle: 45 }}
           padding={{ left: 30, right: 30 }}
         />
-        <YAxis fontFamily="Rubik" fontSize="10px" />
+        <XAxis fontFamily="Rubik" fontSize="10px" />
         <Tooltip cursor={false} content={<CustomTooltip />} />
         <Bar
           dataKey="timeSpent"
