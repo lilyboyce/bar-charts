@@ -116,8 +116,6 @@ const CustomizedAxisTick = ({x, y, stroke, payload}) => {
   );
 }
 
-console.log(CustomizedAxisTick);
-
 const RechartsBar = () => {
   return (
     <ResponsiveContainer height={400}>

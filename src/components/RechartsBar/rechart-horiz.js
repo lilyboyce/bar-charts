@@ -87,6 +87,7 @@ const data = [
   }
 ];
 
+//need to pass through LabelList to create right-side column
 const CustomLabel = (x, y, value) => {
   return (
     <text x={x * 2} y={y + 16}>
@@ -95,7 +96,17 @@ const CustomLabel = (x, y, value) => {
   );
 };
 
+const dotColor = data.map(d => {
+  const color = d.goal > d.timeSpent ? "#4a4a4a" : "#f2f2f2";
+return color;
+});
+//not passing both colors to bars - only renders #4a4a4a even though it's logging them correctly
+console.log(dotColor);
+
+
+
 const RechartHoriz = () => {
+
   return (
     <ResponsiveContainer height={500}>
       <ComposedChart
@@ -118,38 +129,34 @@ const RechartHoriz = () => {
           width={80}
           tick={{
             fontSize: 12,
-            whitespace: "nowrap"
+            whitespace: "nowrap",
+            fontFamily: "Rubik"
           }}
         />
         <XAxis type={"number"} hide={true} />
         <Bar
           dataKey="timeSpent"
           barSize={15}
+          // barCategoryGap="10%"
           legend="none"
           radius={[0, 3, 3, 0]}
         >
           {data.map(datum => {
             const color = datum.goal > datum.timeSpent ? "#EF4A4A" : "#00205C";
-            return <Cell fill={color} />;
+            return <Cell key={datum.brand} fill={color} />;
           })}
-          <LabelList
+          {/* <LabelList
             dataKey={"goal"}
             position={"right"}
             content={<CustomLabel value={data.goal}/>}
-          />
+          /> */}
         </Bar>
         <Line
           dataKey={"goal"}
           stroke="none"
-          dot={{ fill: "#f2f2f2", r: 4 }}
-          activeDot={{ stroke: "#FFA600", r: 6 }}
+          dot={{ fill: dotColor, r: 4 }}
         >
-          {data.map(datum => {
-            const color = datum.goal > datum.timeSpent ? "#4a4a4a" : "#f2f2f2";
-            return <Cell fill={color} />;
-          })}
         </Line>
-        {/* <Tooltip position={{x: 26, y:0}}/> */}
       </ComposedChart>
     </ResponsiveContainer>
   );
